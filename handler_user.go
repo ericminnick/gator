@@ -41,6 +41,9 @@ func handlerRegister(s *state, cmd command) error {
 		UpdatedAt: 	time.Now().UTC(),
 		Name:		name,
 	})
+	if err != nil {
+		return fmt.Errorf("couldn't create user: %w", err)
+	}
 	
 	err = s.cfg.SetUser(user.Name)
 	if err != nil { 
@@ -55,4 +58,19 @@ func handlerRegister(s *state, cmd command) error {
 func printUser(user database.User) {
 	fmt.Printf(" * ID:		%v\n", user.ID)
 	fmt.Printf(" * Name:	%v\n", user.Name)
+}
+
+func handlerReset(s *state, cmd command) error {
+	if len(cmd.Args) > 1 {
+		return fmt.Errorf("Usage: %s", cmd.Name)
+	}
+	
+	err := s.db.Reset(context.Background())
+	if err != nil {
+		return fmt.Errorf("couldn't reset users table")
+	}
+	
+	fmt.Println("Users deleted")
+	return nil
+
 }
