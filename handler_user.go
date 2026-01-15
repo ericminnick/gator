@@ -10,7 +10,7 @@ import (
 )
 
 func handlerUsers(s *state, cmd command) error {
-	if len(cmd.Args) > 1 {
+	if len(cmd.Args) != 0 {
 		return fmt.Errorf("Usage: %s", cmd.Name)
 	}
 	
@@ -85,7 +85,7 @@ func printUsers(users []string, s *state) {
 }
 
 func handlerReset(s *state, cmd command) error {
-	if len(cmd.Args) > 1 {
+	if len(cmd.Args) != 0 {
 		return fmt.Errorf("Usage: %s", cmd.Name)
 	}
 	
