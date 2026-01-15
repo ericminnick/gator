@@ -48,10 +48,14 @@ func handlerFollowing(s *state, cmd command, user database.User) error {
 	if err != nil {
 		return fmt.Errorf("couldn't get following: %w", err)
 	}
-	
-	fmt.Printf("Showing Feeds followed by %s:\n", user.Name)
-	for i, feed := range userFollowing {
-		fmt.Printf(" * Feed %v Name: %s\n", i+1,feed.Name)
+
+	if len(userFollowing) > 0 {
+		fmt.Printf("Showing Feeds followed by %s:\n", user.Name)
+		for i, feed := range userFollowing {
+			fmt.Printf(" * Feed %v Name: %s\n", i+1,feed.Name)
+		}
+	} else {
+		fmt.Printf("%s is not following any feeds\n", user.Name)
 	}
 	
 
